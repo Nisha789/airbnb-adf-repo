@@ -1,15 +1,17 @@
 {
 	"name": "Synapse_LS_new",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureSqlDW",
 		"typeProperties": {
 			"server": "synapse-neu.sql.azuresynapse.net",
 			"database": "airbnb_dwh",
-			"encrypt": "optional",
-			"trustServerCertificate": false,
-			"authenticationType": "SystemAssignedManagedIdentity"
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "SQL",
+			"userName": "sqladminuser",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDQwRjUxOTg4LTJGNDgtNENEMi04MkFBLUVCOUJENjRDQjcwMV83MjQ4ZjJkZC05ZjU3LTQ2ODQtOTFjYi01YmQwZWNhMDM3MGQiDQp9"
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/linkedservices"
+	}
 }
