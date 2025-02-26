@@ -1,0 +1,10 @@
+{
+	"name": "ADLS_LS",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://airbnbstgaccneu.dfs.core.windows.net/"
+		}
+	}
+}
