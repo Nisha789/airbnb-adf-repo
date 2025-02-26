@@ -6,8 +6,8 @@
 		"typeProperties": {
 			"server": "synapse-neu.sql.azuresynapse.net",
 			"database": "airbnb_dwh",
-			"encrypt": "mandatory",
-			"trustServerCertificate": true,
+			"encrypt": "optional",
+			"trustServerCertificate": false,
 			"authenticationType": "SystemAssignedManagedIdentity"
 		}
 	},
