@@ -17,8 +17,7 @@
 						"referenceName": "BookingsFactSynapse",
 						"type": "DatasetReference"
 					},
-					"name": "SynapseForLookup",
-					"description": "Import Data from bookingsFactDataSynapse"
+					"name": "SynapseForLookup"
 				}
 			],
 			"sinks": [
