@@ -2,7 +2,7 @@
 	"name": "BookingsFactSynapse",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Synapse_LS",
+			"referenceName": "Synapse_LS_new",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
