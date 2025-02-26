@@ -34,6 +34,14 @@
 		"Synapse_LS_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "sqladminuser"
+		},
+		"Synapse_LS_new_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "synapse-neu.sql.azuresynapse.net"
+		},
+		"Synapse_LS_new_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "airbnb_dwh"
 		}
 	},
 	"variables": {
@@ -460,7 +468,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "Synapse_LS",
+					"referenceName": "Synapse_LS_new",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -546,7 +554,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Synapse_LS')]"
+				"[concat(variables('factoryId'), '/linkedServices/Synapse_LS_new')]"
 			]
 		},
 		{
@@ -680,7 +688,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "Synapse_LS",
+					"referenceName": "Synapse_LS_new",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -767,7 +775,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Synapse_LS')]"
+				"[concat(variables('factoryId'), '/linkedServices/Synapse_LS_new')]"
 			]
 		},
 		{
@@ -810,14 +818,31 @@
 				"typeProperties": {
 					"server": "[parameters('Synapse_LS_properties_typeProperties_server')]",
 					"database": "[parameters('Synapse_LS_properties_typeProperties_database')]",
-					"encrypt": "mandatory",
-					"trustServerCertificate": true,
+					"encrypt": "optional",
+					"trustServerCertificate": false,
 					"authenticationType": "SQL",
 					"userName": "[parameters('Synapse_LS_properties_typeProperties_userName')]",
 					"password": {
 						"type": "SecureString",
 						"value": "[parameters('Synapse_LS_password')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Synapse_LS_new')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"server": "[parameters('Synapse_LS_new_properties_typeProperties_server')]",
+					"database": "[parameters('Synapse_LS_new_properties_typeProperties_database')]",
+					"encrypt": "optional",
+					"trustServerCertificate": false,
+					"authenticationType": "SystemAssignedManagedIdentity"
 				}
 			},
 			"dependsOn": []
@@ -843,8 +868,7 @@
 								"referenceName": "BookingsFactSynapse",
 								"type": "DatasetReference"
 							},
-							"name": "SynapseForLookup",
-							"description": "Import Data from bookingsFactDataSynapse"
+							"name": "SynapseForLookup"
 						}
 					],
 					"sinks": [
@@ -996,7 +1020,25 @@
 						"     format: 'table',",
 						"     staged: true,",
 						"     allowCopyCommand: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> SynapseFactWrite"
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          booking_id,",
+						"          property_id,",
+						"          customer_id,",
+						"          owner_id,",
+						"          check_in_date,",
+						"          check_out_date,",
+						"          booking_date,",
+						"          amount,",
+						"          currency,",
+						"          city,",
+						"          country,",
+						"          full_address,",
+						"          stay_duration,",
+						"          booking_year,",
+						"          booking_month,",
+						"          timestamp",
+						"     )) ~> SynapseFactWrite"
 					]
 				}
 			},

@@ -25,6 +25,12 @@
 		},
 		"Synapse_LS_properties_typeProperties_userName": {
 			"value": "sqladminuser"
+		},
+		"Synapse_LS_new_properties_typeProperties_server": {
+			"value": "synapse-neu.sql.azuresynapse.net"
+		},
+		"Synapse_LS_new_properties_typeProperties_database": {
+			"value": "airbnb_dwh"
 		}
 	}
 }
